@@ -7,6 +7,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <link href="<%=request.getContextPath()%>/templates/public/css/layout.css" rel="stylesheet" type="text/css" media="all">
+<script src="<%=request.getContextPath() %>/templates/public/js/jquery.min.js"></script>
 </head>
 <body id="top">
 <!-- ################################################################################################ -->
