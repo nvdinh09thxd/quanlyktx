@@ -1,3 +1,4 @@
+<%@page import="models.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -20,12 +21,17 @@
     <div id="topbar" class="hoc clear"> 
       <!-- ################################################################################################ -->
       <div class="fl_left">
+      	<%
+			      Member userLogin = (Member) session.getAttribute("userLogin");
+		    %>
         <ul class="nospace">
           <li><a href="#"><i class="fa fa-lg fa-home"></i></a></li>
           <li><a href="#">About</a></li>
           <li><a href="#">Contact</a></li>
-          <li><a href="#">Login</a></li>
-          <li><a href="#">Register</a></li>
+          <li style="<%if(userLogin!=null) out.print("display: none"); %>"><a href="<%=request.getContextPath()%>/login">Login</a></li>
+          <li style="<%if(userLogin!=null) out.print("display: none"); %>"><a href="<%=request.getContextPath()%>/register">Register</a></li>
+          <li style="<%if(userLogin==null) out.print("display: none"); %>"><a href="<%=request.getContextPath()%>/logout">Logout</a></li>
+          <li>Xin chào <%if(userLogin!=null) out.print(userLogin.getLastName()); else out.print("Khách"); %></li>
         </ul>
       </div>
       <div class="fl_right">
@@ -48,7 +54,7 @@
       </div>
       <nav id="mainav" class="fl_right">
         <ul class="clear">
-          <li class="active"><a href="<%=request.getContextPath()%>/views/index.jsp">Home</a></li>
+          <li class="active"><a href="<%=request.getContextPath()%>/index">Home</a></li>
           <li><a class="drop" href="#">Pages</a>
             <ul>
               <li><a href="<%=request.getContextPath()%>/views/pages/gallery.jsp">Gallery</a></li>

@@ -1,4 +1,5 @@
-<%@page import="beans.Room"%>
+<%@page import="models.Boot"%>
+<%@page import="models.Room"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -25,21 +26,44 @@
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
 <div class="wrapper row3">
-  <main class="hoc container clear"> 
+  <main class="hoc container clear">
+  <%!
+	  public boolean checkIdRoom(List<Boot> listBoots, int idRoom){
+	  	for(Boot objBoot : listBoots){
+	  		if(objBoot.getIdRoom()==idRoom && objBoot.isStatus()) return true;
+	  	}
+	  	return false;
+	  }
+  %>
     <!-- main body -->
     <!-- ################################################################################################ -->
+    <%
+			if(request.getParameter("msg")!=null){
+				int msg = Integer.parseInt(request.getParameter("msg"));
+				switch(msg){
+					case 1: out.print("<p style='background: yellow; color: green'>Đăng ký thành công!</p>");
+					break;
+				}
+			}
+	%>
+	<a style="<%if(userLogin==null) out.print("display: none");%>" href="javascript:void(0)"
+		onclick="onSaveBoot(<%if(userLogin!=null) out.print(userLogin.getId()); %>)">
+	<img style="width:60px;height:50px;" alt="" src="<%=request.getContextPath()%>/uploads/images/saveicon.png">
+	</a>
     <table>
 	  <thead>
 	    <tr>
-	      <th>Tên phòng</th>
-	      <th>Khu vực</th>
+	      <th style="text-align: center">Tên phòng</th>
+	      <th style="text-align: center">Khu vực</th>
 	      <th style="text-align: center">Số giường</th>
-	      <th>Có vệ sinh trong</th>
-	      <th>Giá tiền</th>
+	      <th style="text-align: center">Có vệ sinh trong</th>
+	      <th style="text-align: center">Giá tiền</th>
+	      <th style="<%if(userLogin==null) out.print("display: none"); %>">Cảm xúc</th>
+	      <th style="<%if(userLogin==null) out.print("display: none"); %>">Đặt phòng</th>
 	    </tr>
 	    <tr>
 	      	<th>
-		      	<input style="color: blue" type="text" id="name" onkeyup="filterName(1)" />
+		      	<input style="color: blue" type="text" placeholder="Nhập tên phòng..." id="name" onkeyup="filterName(1)" />
 			</th>
 	      	<th>
 		      	<select style="color: blue" onchange="filterName(2)" id="area">
@@ -72,10 +96,14 @@
 				  <option value="3">Trên 1 Triệu</option>
 				</select>
 			</th>
+	      	<th style="<%if(userLogin==null) out.print("display: none"); %>"></th>
+			<th style="<%if(userLogin==null) out.print("display: none"); %>"></th>
 	    </tr>
 	   </thead>
 	   <tbody>
 	   <%
+	   List<Boot> listBoots = (List<Boot>) session.getAttribute("listBoots");
+	   
 	   if(request.getAttribute("listRooms")!=null){
 	   List<Room> listRooms = (List<Room>) request.getAttribute("listRooms");
 	   if(listRooms.size()>0){
@@ -87,6 +115,11 @@
 	       <td><%=objRoom.getNumberOfBed() %> giường</td>
 	       <td><input type="checkbox" <%if(objRoom.isHaveTolet()) out.print("checked"); %>></td>
 	       <td><%=objRoom.getPrice() %></td>
+	       <td style="<%if(userLogin==null) out.print("display: none"); %>"><a href="javascript:void(0)">
+	       		<img style="width:60px;height:50px;" alt="" src="<%=request.getContextPath()%>/uploads/images/like.jpg"></a></td>
+	       <td style="<%if(userLogin==null) out.print("display: none"); %>"><a href="javascript:void(0)" onclick="onSelectRoom(<%=objRoom.getId() %>)">
+	       		<img style="width:40px;height:50px;" class="select"
+	       		src="<%=request.getContextPath()%>/uploads/images/<%if(listBoots!=null && checkIdRoom(listBoots, objRoom.getId())) out.print("tick.png"); else out.print("cancel.png"); %>"></a></td>
 	     </tr>
 	     <%
 	   		}}}
@@ -129,6 +162,57 @@ function filterName(number){
 		},
 		success: function(data){
 			$('tbody').html(data);
+		},
+		error: function (){
+			alert('Có lỗi xảy ra');
+		}
+	})
+}
+
+$("img[class=select]").click(function(){
+	let image = $(this);
+	$.ajax({
+		url: '<%=request.getContextPath()%>/index',
+			type : 'POST',
+			cache : false,
+			data : {
+				asrc : image.attr("src")
+			},
+			success : function(data) {
+				image.attr("src", data)
+			},
+			error : function() {
+				alert("Có lỗi xảy ra");
+			}
+		});
+});
+
+function onSelectRoom(id){
+	//alert(id);
+	$.ajax({
+		url: '<%=request.getContextPath()%>/index',
+		type: 'POST',
+		data: {
+			aid: id,
+		},
+		success: function(data){
+			//alert("Đã chọn!");
+		},
+		error: function (){
+			alert('Có lỗi xảy ra');
+		}
+	})
+}
+
+function onSaveBoot(idMember){
+	$.ajax({
+		url: '<%=request.getContextPath()%>/index',
+		type: 'POST',
+		data: {
+			aidMember: idMember,
+		},
+		success: function(data){
+			alert("Đã lưu!");
 		},
 		error: function (){
 			alert('Có lỗi xảy ra');

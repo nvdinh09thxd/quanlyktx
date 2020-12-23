@@ -1,2 +1,4 @@
 eclipse.preferences.version=1
 encoding//src/controllers/publics/PublicIndexController.java=UTF-8
+encoding//src/controllers/publics/PublicLoginController.java=UTF-8
+encoding//src/controllers/publics/PublicRegisterController.java=UTF-8

@@ -29,24 +29,67 @@
     <div class="content"> 
       <!-- ################################################################################################ -->
       <div id="gallery">
-        <figure>
-          <header class="heading">Gallery Title Goes Here</header>
-          <ul class="nospace clear">
-            <li class="one_quarter first"><a href="#"><img src="<%=request.getContextPath()%>/templates/public/images/01.png" alt=""></a></li>
-            <li class="one_quarter"><a href="#"><img src="<%=request.getContextPath()%>/templates/public/images/01.png" alt=""></a></li>
-            <li class="one_quarter"><a href="#"><img src="<%=request.getContextPath()%>/templates/public/images/01.png" alt=""></a></li>
-            <li class="one_quarter"><a href="#"><img src="<%=request.getContextPath()%>/templates/public/images/01.png" alt=""></a></li>
-            <li class="one_quarter first"><a href="#"><img src="<%=request.getContextPath()%>/templates/public/images/01.png" alt=""></a></li>
-            <li class="one_quarter"><a href="#"><img src="<%=request.getContextPath()%>/templates/public/images/01.png" alt=""></a></li>
-            <li class="one_quarter"><a href="#"><img src="<%=request.getContextPath()%>/templates/public/images/01.png" alt=""></a></li>
-            <li class="one_quarter"><a href="#"><img src="<%=request.getContextPath()%>/templates/public/images/01.png" alt=""></a></li>
-            <li class="one_quarter first"><a href="#"><img src="<%=request.getContextPath()%>/templates/public/images/01.png" alt=""></a></li>
-            <li class="one_quarter"><a href="#"><img src="<%=request.getContextPath()%>/templates/public/images/01.png" alt=""></a></li>
-            <li class="one_quarter"><a href="#"><img src="<%=request.getContextPath()%>/templates/public/images/01.png" alt=""></a></li>
-            <li class="one_quarter"><a href="#"><img src="<%=request.getContextPath()%>/templates/public/images/01.png" alt=""></a></li>
-          </ul>
-          <figcaption>Gallery Description Goes Here</figcaption>
-        </figure>
+        <form class="primari-box personal-info-box" id="personalinfo" method="post">
+			<h3 class="box-subheading">Your personal information</h3>
+			<div class="personal-info-content">
+				<div class="form-group primary-form-group p-info-group">
+					<label>Gender</label>
+					<span class="radio-box">
+						<input id="radio1" type="radio" name="gender" value="true" checked="checked">
+						<label for="radio1">Mr.</label>
+					</span>
+					<span class="radio-box">
+						<input id="radio2" type="radio" name="gender" value="false">
+						
+						<label for="radio2">Mrs.</label>
+					</span>
+				</div>
+				<div class="form-group primary-form-group p-info-group">
+					<label for="firstname">First Name <sup>*</sup></label>
+					<input type="text" value="" name="firstname" id="firstname" class="form-control input-feild">
+				</div>
+				<div class="form-group primary-form-group p-info-group">
+					<label for="lastname">Last Name <sup>*</sup></label>
+					<input type="text" value="" name="lastname" id="lastname" class="form-control input-feild">
+				</div>
+				<div class="form-group primary-form-group p-info-group">
+					<label for="lastname">Address <sup>*</sup></label>
+					<input type="text" value="" name="address" id="address" class="form-control input-feild">
+				</div>
+				<div class="form-group primary-form-group p-info-group">
+					<label for="email">Email<sup>*</sup></label>
+					<input type="email" value="" name="email" id="email" class="form-control input-feild">
+				</div>
+				<div class="form-group primary-form-group p-info-group">
+					<label for="password">Password <sup>*</sup></label>
+					<input type="password" value="" name="password" id="password" class="form-control input-feild">
+					<span class="min-pass">(Five characters minimum)</span>
+				</div>
+				<div class="form-group primary-form-group p-info-group">
+					<label class="cheker">
+						<input type="checkbox" name="checkbox">
+						<span></span>
+					</label>
+					<a href="#">Sign up for our newsletter!</a>
+				</div>
+				<div class="form-group primary-form-group p-info-group">
+					<label class="cheker">
+						<input type="checkbox" name="checkbox">
+						<span></span>
+					</label>
+					<a href="#">Receive special offers from our partners!</a>
+				</div>
+				<div class="submit-button p-info-submit-button">
+					<a href="javascript:void(0)" id="SubmitCreate" class="btn main-btn">
+						<span>
+							<i class="fa fa-chevron-right"></i>
+							<button>Register</button>
+						</span>											
+					</a>
+					<span class="required-field"><sup>*</sup>Required field</span>
+				</div>
+			</div>
+		</form>
       </div>
       <!-- ################################################################################################ -->
       <!-- ################################################################################################ -->

@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import beans.Room;
+import models.Room;
 import util.DBConnectionUtil;
 
 public class RoomDAO extends AbstractDAO {

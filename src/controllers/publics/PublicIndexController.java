@@ -11,36 +11,65 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import beans.Room;
+import daos.BootDAO;
 import daos.RoomDAO;
+import models.Boot;
+import models.Member;
+import models.Room;
 
 @WebServlet("/index")
 public class PublicIndexController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	RoomDAO roomDao;
+	BootDAO bootDao;
 	List<Room> listRooms;
+	List<Boot> listBoots;
+	HttpSession session;
 
 	public PublicIndexController() {
 		super();
 		roomDao = new RoomDAO();
+		bootDao = new BootDAO();
 		listRooms = new ArrayList<>();
+		listBoots = new ArrayList<>();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		session = request.getSession();
+		if (session.getAttribute("userLogin") != null && session.getAttribute("listBoots") == null) {
+			Member userLogin = (Member) session.getAttribute("userLogin");
+			List<Boot> listBoots = bootDao.findAll(userLogin.getId());
+			session.setAttribute("listBoots", listBoots);
+		}
 		listRooms = roomDao.findAll();
 		request.setAttribute("listRooms", listRooms);
-		RequestDispatcher rd = request.getRequestDispatcher("/views/pages/basic-grid.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/views/pages/list.jsp");
 		rd.forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		PrintWriter out = response.getWriter();
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html");
+		if (request.getParameter("aid") != null) {
+			SelectRoom(request, response);
+		} else if (request.getParameter("asrc") != null) {
+			changeIcon(request, response);
+		} else if (request.getParameter("anumber") != null) {
+			FilterRooms(request, response);
+		} else {
+			saveBoot(request, response);
+		}
+
+	}
+
+	protected void FilterRooms(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		PrintWriter out = response.getWriter();
 		List<Room> listRoomsFilter = new ArrayList<>();
 		int number = Integer.parseInt(request.getParameter("anumber"));
 		String value = request.getParameter("avalue");
@@ -53,7 +82,7 @@ public class PublicIndexController extends HttpServlet {
 			case 2:
 				if (!"0".equals(value) && objRoom.getArea() == Integer.parseInt(value)) {
 					listRoomsFilter.add(objRoom);
-				}else if("0".equals(value)) {
+				} else if ("0".equals(value)) {
 					listRoomsFilter.add(objRoom);
 				}
 				break;
@@ -75,7 +104,7 @@ public class PublicIndexController extends HttpServlet {
 					listRoomsFilter.add(objRoom);
 				break;
 			case 5:
-				if("0".equals(value)) {
+				if ("0".equals(value)) {
 					listRoomsFilter.add(objRoom);
 				}
 				if ("1".equals(value) && objRoom.getPrice() < 500000)
@@ -97,7 +126,61 @@ public class PublicIndexController extends HttpServlet {
 			out.print("<td>" + objRoom.getPrice() + "</td>");
 			out.print("</tr>");
 		}
+	}
 
+	@SuppressWarnings("unchecked")
+	protected void SelectRoom(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		int idRoom = Integer.parseInt(request.getParameter("aid"));
+		Boot boot = new Boot(idRoom, true);
+		boolean check = false;
+		if (session.getAttribute("listBoots") != null) {
+			listBoots = (List<Boot>) session.getAttribute("listBoots");
+		}
+		for (Boot objBoot : listBoots) {
+			if (objBoot.getIdRoom() == idRoom) {
+				objBoot.setStatus(!objBoot.isStatus());
+				check = true;
+				break;
+			}
+		}
+		if (!check) {
+			listBoots.add(boot);
+		}
+		if (session.getAttribute("listBoots") == null) {
+			session.setAttribute("listBoots", listBoots);
+		}
+	}
+
+	protected void changeIcon(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String src = request.getParameter("asrc");
+		PrintWriter out = response.getWriter();
+		int idx = src.lastIndexOf("/");
+		String firstName = src.substring(0, idx + 1);
+		String lastName = src.substring(idx + 1);
+		String fileName = "";
+		if (lastName.equals("tick.png")) {
+			fileName = firstName + "cancel.png";
+		} else {
+			fileName = firstName + "tick.png";
+		}
+		out.print(fileName);
+	}
+
+	@SuppressWarnings("unchecked")
+	protected void saveBoot(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		int idMember = Integer.parseInt(request.getParameter("aidMember"));
+		listBoots = (List<Boot>) session.getAttribute("listBoots");
+		if (listBoots != null && listBoots.size() > 0) {
+			for (Boot objBoot : listBoots) {
+				if (bootDao.add(objBoot, idMember) == 0) {
+					bootDao.edit(objBoot, idMember);
+				}
+			}
+		}
+		session.removeAttribute("listBoots");
 	}
 
 }

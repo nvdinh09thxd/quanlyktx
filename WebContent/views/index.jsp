@@ -50,7 +50,7 @@
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
-<div class="wrapper bgded overlay" style="background-image:url('<%=request.getContextPath()%>/templates/public/images/02.png');">
+<div class="wrapper bgded overlay" style="background-image:url('<%=request.getContextPath()%>/uploads/images/toancanh1.jpg');">
   <div class="hoc container clear center"> 
     <!-- ################################################################################################ -->
     <article>
@@ -70,7 +70,7 @@
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
 <div class="wrapper">
-  <div class="split clear" style="background-image:url('<%=request.getContextPath()%>/templates/public/images/03.png');">
+  <div class="split clear" style="background-image:url('<%=request.getContextPath()%>/uploads/images/toancanh3.jpg');">
     <section class="box"> 
       <!-- ################################################################################################ -->
       <div class="btmspace-50">
@@ -125,7 +125,7 @@
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
-<div class="wrapper bgded overlay" style="background-image:url('<%=request.getContextPath()%>/templates/public/images/04.png');">
+<div class="wrapper bgded overlay" style="background-image:url('<%=request.getContextPath()%>/uploads/images/vuichoi.jpg');">
   <div class="hoc container center clear"> 
     <!-- ################################################################################################ -->
     <blockquote class="nospace btmspace-50 font-x1">Augue vitae faucibus nullam ut aliquet sapienproin euismod enim vel lacinia ultrices risus mi feugiat diam vitae ullamcorper tortor purus at lectus duis arcu sapien sollicitudin a dolor non porttitor eleifend sem vivamus hendrerit dolor in viverra auctor tellus.</blockquote>
@@ -147,19 +147,19 @@
       <p class="nospace">Eros etiam vel felis nulla donec eleifend facilisis faucibus aliquam dictum enim ac <a href="#">vehicula tristique</a>.</p>
     </div>
     <div class="group">
-      <article class="one_third first"><a href="#"><img class="btmspace-30" src="<%=request.getContextPath()%>/templates/public/images/320x210.png" alt=""></a>
+      <article class="one_third first"><a href="#"><img class="btmspace-30" src="<%=request.getContextPath()%>/uploads/images/phong.jpg" alt=""></a>
         <time class="block font-xs" datetime="2045-04-06">6<sup>th</sup> April 2045</time>
         <h4 class="nospace font-x1">Vitae tortor placerat</h4>
         <p>Vel consectetur interdum orci aliquam vel accumsan turpis hendrerit dolor tincidunt tincidunt vestibulum purus&hellip;</p>
         <p class="nospace"><a href="#">Read More &raquo;</a></p>
       </article>
-      <article class="one_third"><a href="#"><img class="btmspace-30" src="<%=request.getContextPath()%>/templates/public/images/320x210.png" alt=""></a>
+      <article class="one_third"><a href="#"><img class="btmspace-30" src="<%=request.getContextPath()%>/uploads/images/sinhhoat.jpg" alt=""></a>
         <time class="block font-xs" datetime="2045-04-05">5<sup>th</sup> April 2045</time>
         <h4 class="nospace font-x1">Dictum ut felis</h4>
         <p>Justo lacinia nibh eget porttitor erat metus in mauris nulla volutpat lectus risus sit amet vestibulum dui suscipit&hellip;</p>
         <p class="nospace"><a href="#">Read More &raquo;</a></p>
       </article>
-      <article class="one_third"><a href="#"><img class="btmspace-30" src="<%=request.getContextPath()%>/templates/public/images/320x210.png" alt=""></a>
+      <article class="one_third"><a href="#"><img class="btmspace-30" src="<%=request.getContextPath()%>/uploads/images/hoctap.jpg" alt=""></a>
         <time class="block font-xs" datetime="2045-04-04">4<sup>th</sup> April 2045</time>
         <h4 class="nospace font-x1">Consectetur vel neque</h4>
         <p>Eget proin in purus bibendum lacinia metus ornare rutrum eros lorem ipsum dolor sit amet consectetur adipiscing elit&hellip;</p>
