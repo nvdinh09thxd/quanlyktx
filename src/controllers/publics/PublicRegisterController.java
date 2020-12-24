@@ -24,7 +24,7 @@ public class PublicRegisterController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("/views/pages/register.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/views/public/pages/register.jsp");
 		rd.forward(request, response);
 	}
 

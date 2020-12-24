@@ -27,6 +27,7 @@ public class PublicIndexController extends HttpServlet {
 	List<Room> listRooms;
 	List<Boot> listBoots;
 	HttpSession session;
+	Member userLogin;
 
 	public PublicIndexController() {
 		super();
@@ -40,13 +41,13 @@ public class PublicIndexController extends HttpServlet {
 			throws ServletException, IOException {
 		session = request.getSession();
 		if (session.getAttribute("userLogin") != null && session.getAttribute("listBoots") == null) {
-			Member userLogin = (Member) session.getAttribute("userLogin");
+			userLogin = (Member) session.getAttribute("userLogin");
 			List<Boot> listBoots = bootDao.findAll(userLogin.getId());
 			session.setAttribute("listBoots", listBoots);
 		}
 		listRooms = roomDao.findAll();
 		request.setAttribute("listRooms", listRooms);
-		RequestDispatcher rd = request.getRequestDispatcher("/views/pages/list.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/views/public/pages/list.jsp");
 		rd.forward(request, response);
 	}
 
@@ -134,9 +135,7 @@ public class PublicIndexController extends HttpServlet {
 		int idRoom = Integer.parseInt(request.getParameter("aid"));
 		Boot boot = new Boot(idRoom, true);
 		boolean check = false;
-		if (session.getAttribute("listBoots") != null) {
-			listBoots = (List<Boot>) session.getAttribute("listBoots");
-		}
+		listBoots = (List<Boot>) session.getAttribute("listBoots");
 		for (Boot objBoot : listBoots) {
 			if (objBoot.getIdRoom() == idRoom) {
 				objBoot.setStatus(!objBoot.isStatus());
@@ -146,9 +145,6 @@ public class PublicIndexController extends HttpServlet {
 		}
 		if (!check) {
 			listBoots.add(boot);
-		}
-		if (session.getAttribute("listBoots") == null) {
-			session.setAttribute("listBoots", listBoots);
 		}
 	}
 
@@ -180,7 +176,9 @@ public class PublicIndexController extends HttpServlet {
 				}
 			}
 		}
-		session.removeAttribute("listBoots");
+		// sau khi lưu thông tin đặt phòng thì set lại listBoots
+		List<Boot> listBoots = bootDao.findAll(userLogin.getId());
+		session.setAttribute("listBoots", listBoots);
 	}
 
 }

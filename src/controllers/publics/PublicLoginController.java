@@ -27,7 +27,7 @@ public class PublicLoginController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// Chuyển tiếp sang trang login
-		RequestDispatcher rd = request.getRequestDispatcher("/views/pages/login.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/views/public/pages/login.jsp");
 		rd.forward(request, response);
 	}
 
