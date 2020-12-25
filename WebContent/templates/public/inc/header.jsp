@@ -27,7 +27,7 @@
         <ul class="nospace">
           <li><a href="#"><i class="fa fa-lg fa-home"></i></a></li>
           <li><a href="#">About</a></li>
-          <li><a href="#">Contact</a></li>
+          <li><a href="<%=request.getContextPath()%>/auth/login">Admin</a></li>
           <li style="<%if(userLogin!=null) out.print("display: none"); %>"><a href="<%=request.getContextPath()%>/login">Login</a></li>
           <li style="<%if(userLogin!=null) out.print("display: none"); %>"><a href="<%=request.getContextPath()%>/register">Register</a></li>
           <li style="<%if(userLogin==null) out.print("display: none"); %>"><a href="<%=request.getContextPath()%>/logout">Logout</a></li>
@@ -50,7 +50,7 @@
     <header id="header" class="hoc clear"> 
       <!-- ################################################################################################ -->
       <div id="logo" class="fl_left">
-        <h1><a href="<%=request.getContextPath()%>/views/index.jsp">Limberly</a></h1>
+        <h1><a href="<%=request.getContextPath()%>/views/public/index.jsp">Limberly</a></h1>
       </div>
       <nav id="mainav" class="fl_right">
         <ul class="clear">

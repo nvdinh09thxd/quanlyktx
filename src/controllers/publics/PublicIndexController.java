@@ -42,7 +42,7 @@ public class PublicIndexController extends HttpServlet {
 		session = request.getSession();
 		if (session.getAttribute("userLogin") != null && session.getAttribute("listBoots") == null) {
 			userLogin = (Member) session.getAttribute("userLogin");
-			List<Boot> listBoots = bootDao.findAll(userLogin.getId());
+			List<Boot> listBoots = bootDao.findByMember(userLogin.getId());
 			session.setAttribute("listBoots", listBoots);
 		}
 		listRooms = roomDao.findAll();
@@ -133,11 +133,11 @@ public class PublicIndexController extends HttpServlet {
 	protected void SelectRoom(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		int idRoom = Integer.parseInt(request.getParameter("aid"));
-		Boot boot = new Boot(idRoom, true);
+		Boot boot = new Boot(new Room(idRoom), true);
 		boolean check = false;
 		listBoots = (List<Boot>) session.getAttribute("listBoots");
 		for (Boot objBoot : listBoots) {
-			if (objBoot.getIdRoom() == idRoom) {
+			if (objBoot.getRoom().getId() == idRoom) {
 				objBoot.setStatus(!objBoot.isStatus());
 				check = true;
 				break;
@@ -177,7 +177,7 @@ public class PublicIndexController extends HttpServlet {
 			}
 		}
 		// sau khi lưu thông tin đặt phòng thì set lại listBoots
-		List<Boot> listBoots = bootDao.findAll(userLogin.getId());
+		List<Boot> listBoots = bootDao.findByMember(userLogin.getId());
 		session.setAttribute("listBoots", listBoots);
 	}
 

@@ -1,3 +1,4 @@
+<%@page import="models.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -10,12 +11,18 @@
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
+      <%
+      	User UserLogin = (User) session.getAttribute("userInfo");
+      %>
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
           <img src="<%=request.getContextPath() %>/templates/admin/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
-        <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+        <div style="<%if(UserLogin!=null) out.print("display: none"); %>" class="info">
+          <a href="<%=request.getContextPath() %>/auth/login" class="d-block">Login</a>
+        </div>
+        <div style="<%if(UserLogin==null) out.print("display: none"); %>" class="info">
+          <a href="<%=request.getContextPath() %>/auth/login" class="d-block"><%if(UserLogin!=null) out.print(UserLogin.getFullname()); %></a>
         </div>
       </div>
 
@@ -48,19 +55,19 @@
               <li class="nav-item">
                 <a href="<%=request.getContextPath() %>/admin/index" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Quản lý danh mục</p>
+                  <p>Trang chủ</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<%=request.getContextPath() %>/admin/product/index" class="nav-link">
+                <a href="<%=request.getContextPath() %>/admin/boot" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Quản lý sản phẩm</p>
+                  <p>Quản lý đặt phòng</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<%=request.getContextPath() %>/admin/order/index" class="nav-link">
+                <a href="<%=request.getContextPath() %>/admin/report" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Quản lý đơn hàng</p>
+                  <p>Thống kê, báo cáo</p>
                 </a>
               </li>
             </ul>

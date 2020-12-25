@@ -30,7 +30,7 @@
   <%!
 	  public boolean checkIdRoom(List<Boot> listBoots, int idRoom){
 	  	for(Boot objBoot : listBoots){
-	  		if(objBoot.getIdRoom()==idRoom && objBoot.isStatus()) return true;
+	  		if(objBoot.getRoom().getId()==idRoom && objBoot.isStatus()) return true;
 	  	}
 	  	return false;
 	  }

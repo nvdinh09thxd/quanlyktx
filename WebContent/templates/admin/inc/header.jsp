@@ -27,6 +27,7 @@
   <link rel="stylesheet" href="<%=request.getContextPath() %>/templates/admin/plugins/daterangepicker/daterangepicker.css">
   <!-- summernote -->
   <link rel="stylesheet" href="<%=request.getContextPath() %>/templates/admin/plugins/summernote/summernote-bs4.min.css">
+  <script type="text/javascript" src="<%=request.getContextPath() %>/templates/admin/dist/js/jquery-2.1.1.min.js"></script>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -39,7 +40,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="index3.html" class="nav-link">Home</a>
+        <a href="<%=request.getContextPath() %>/index" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Contact</a>

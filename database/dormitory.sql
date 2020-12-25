@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th12 24, 2020 lúc 01:55 AM
+-- Thời gian đã tạo: Th12 25, 2020 lúc 10:51 AM
 -- Phiên bản máy phục vụ: 10.1.32-MariaDB
 -- Phiên bản PHP: 7.1.17
 
@@ -53,15 +53,31 @@ CREATE TABLE `boots` (
   `id` int(11) NOT NULL,
   `id_member` int(11) DEFAULT NULL,
   `id_room` int(11) NOT NULL,
-  `status` tinyint(4) NOT NULL DEFAULT '1'
+  `status` tinyint(4) NOT NULL DEFAULT '1',
+  `accept` tinyint(4) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `boots`
 --
 
-INSERT INTO `boots` (`id`, `id_member`, `id_room`, `status`) VALUES
-(25, 1, 1, 1);
+INSERT INTO `boots` (`id`, `id_member`, `id_room`, `status`, `accept`) VALUES
+(1, 1, 1, 1, 1),
+(2, 1, 2, 0, 0),
+(5, 1, 3, 1, 1),
+(18, 1, 5, 0, 0),
+(19, 1, 4, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `empty_rooms`
+--
+
+CREATE TABLE `empty_rooms` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -99,19 +115,46 @@ CREATE TABLE `rooms` (
   `area` int(11) NOT NULL,
   `number_of_bed` int(11) NOT NULL,
   `have_toilet` tinyint(1) NOT NULL,
-  `price` float NOT NULL
+  `price` float NOT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `rooms`
 --
 
-INSERT INTO `rooms` (`id`, `name`, `area`, `number_of_bed`, `have_toilet`, `price`) VALUES
-(1, 'A101', 1, 8, 1, 400000),
-(2, 'A102', 1, 6, 0, 600000),
-(3, 'B102', 2, 6, 1, 700000),
-(4, 'C101', 3, 4, 1, 1200000),
-(5, 'D102', 4, 8, 0, 800000);
+INSERT INTO `rooms` (`id`, `name`, `area`, `number_of_bed`, `have_toilet`, `price`, `status`) VALUES
+(1, 'A101', 1, 8, 1, 400000, 0),
+(2, 'A102', 1, 6, 0, 600000, 1),
+(3, 'B102', 2, 6, 1, 700000, 0),
+(4, 'C101', 3, 4, 1, 1200000, 1),
+(5, 'D102', 4, 8, 0, 800000, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `username` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `fullname` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `password`, `fullname`) VALUES
+(1, 'admin', '202cb962ac59075b964b07152d234b70', 'Administrator'),
+(2, 'dinh', '202cb962ac59075b964b07152d234b70', 'Nguyễn Văn Định'),
+(5, 'manhme', '202cb962ac59075b964b07152d234b70', 'Đinh Công Mạnh'),
+(6, 'nvdinh185', '202cb962ac59075b964b07152d234b70', 'Nguyễn Văn Định'),
+(7, 'toquyen', '202cb962ac59075b964b07152d234b70', 'Tố Quyên'),
+(8, 'huonghoa', 'e10adc3949ba59abbe56e057f20f883e', 'huong'),
+(9, 'user', '202cb962ac59075b964b07152d234b70', 'Người dùng bình thường');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -131,6 +174,12 @@ ALTER TABLE `boots`
   ADD UNIQUE KEY `UC_Boots` (`id_member`,`id_room`);
 
 --
+-- Chỉ mục cho bảng `empty_rooms`
+--
+ALTER TABLE `empty_rooms`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Chỉ mục cho bảng `members`
 --
 ALTER TABLE `members`
@@ -140,6 +189,12 @@ ALTER TABLE `members`
 -- Chỉ mục cho bảng `rooms`
 --
 ALTER TABLE `rooms`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `users`
+--
+ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -156,7 +211,13 @@ ALTER TABLE `area`
 -- AUTO_INCREMENT cho bảng `boots`
 --
 ALTER TABLE `boots`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+
+--
+-- AUTO_INCREMENT cho bảng `empty_rooms`
+--
+ALTER TABLE `empty_rooms`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT cho bảng `members`
@@ -169,6 +230,12 @@ ALTER TABLE `members`
 --
 ALTER TABLE `rooms`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT cho bảng `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -27,4 +27,24 @@ public class RoomDAO extends AbstractDAO {
 		}
 		return listItems;
 	}
+
+	public List<Room> getEmptyRooms() {
+		con = DBConnectionUtil.getConnection();
+		List<Room> listItems = new ArrayList<>();
+		String sql = "SELECT * FROM rooms WHERE status = 1 ORDER BY id";
+		try {
+			st = con.createStatement();
+			rs = st.executeQuery(sql);
+			while (rs.next()) {
+				Room item = new Room(rs.getInt("id"), rs.getString("name"), rs.getInt("area"),
+						rs.getInt("number_of_bed"), rs.getBoolean("have_toilet"), rs.getFloat("price"));
+				listItems.add(item);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnectionUtil.close(rs, st, con);
+		}
+		return listItems;
+	}
 }

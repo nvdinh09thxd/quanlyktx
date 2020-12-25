@@ -9,19 +9,30 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Boot {
 	private int id;
-	private int idMember;
-	private int idRoom;
+	private Member member;
+	private Room room;
 	private boolean status;
+	private boolean accept;
 
-	public Boot(int idRoom) {
+	public Boot(Room room, boolean status) {
 		super();
-		this.idRoom = idRoom;
+		this.room = room;
+		this.status = status;
 	}
 
-	public Boot(int idRoom, boolean status) {
+	public Boot(int id, Member member, Room room, boolean accept) {
 		super();
-		this.idRoom = idRoom;
-		this.status = status;
+		this.id = id;
+		this.member = member;
+		this.room = room;
+		this.accept = accept;
+	}
+
+	public Boot(int id, Room room, boolean accept) {
+		super();
+		this.id = id;
+		this.room = room;
+		this.accept = accept;
 	}
 
 }

@@ -14,4 +14,16 @@ public class Room {
 	private int numberOfBed;
 	private boolean haveTolet;
 	private float price;
+
+	public Room(int id) {
+		super();
+		this.id = id;
+	}
+
+	public Room(int id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
+
 }
