@@ -26,6 +26,11 @@ public class PublicLoginController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		if (session.getAttribute("userLogin") != null) {
+			response.sendRedirect(request.getContextPath() + "/index");
+			return;
+		}
 		// Chuyển tiếp sang trang login
 		RequestDispatcher rd = request.getRequestDispatcher("/views/public/pages/login.jsp");
 		rd.forward(request, response);
@@ -47,7 +52,7 @@ public class PublicLoginController extends HttpServlet {
 		} else {
 			// Nếu không tồn tại username và password trong csdl thì chuyển tiếp đến trang
 			// login và thông báo lỗi
-			RequestDispatcher rd = request.getRequestDispatcher("/views/pages/login.jsp?err=0");
+			RequestDispatcher rd = request.getRequestDispatcher("/views/public/pages/login.jsp?err=0");
 			rd.forward(request, response);
 		}
 	}

@@ -27,7 +27,6 @@
 							id="dataTables-example">
 							<thead>
 								<tr>
-									<th>ID</th>
 									<th>Tên phòng</th>
 									<th>Tên người đặt</th>
 									<th>Xét duyệt</th>
@@ -41,7 +40,6 @@
 										String picture = objBoot.isAccept()?"active.gif":"deactive.gif";
 							%>
 								<tr>
-									<td class="center"><%=objBoot.getId() %></td>
 									<td class="center"><%=objBoot.getRoom().getName() %></td>
 									<td class="center"><%=objBoot.getMember().getFullName() %></td>
 									<td class="center">

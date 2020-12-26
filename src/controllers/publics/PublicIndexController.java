@@ -81,7 +81,7 @@ public class PublicIndexController extends HttpServlet {
 					listRoomsFilter.add(objRoom);
 				break;
 			case 2:
-				if (!"0".equals(value) && objRoom.getArea() == Integer.parseInt(value)) {
+				if (!"0".equals(value) && objRoom.getArea().getId() == Integer.parseInt(value)) {
 					listRoomsFilter.add(objRoom);
 				} else if ("0".equals(value)) {
 					listRoomsFilter.add(objRoom);
@@ -121,9 +121,9 @@ public class PublicIndexController extends HttpServlet {
 			String checked = objRoom.isHaveTolet() ? " checked " : "";
 			out.print("<tr>");
 			out.print("<td>" + objRoom.getName() + "</td>");
-			out.print("<td>" + objRoom.getArea() + "</td>");
+			out.print("<td>Khu " + objRoom.getArea().getName() + "</td>");
 			out.print("<td>" + objRoom.getNumberOfBed() + " giường</td>");
-			out.print("<td> <input type='checkbox'" + checked + " /></td>");
+			out.print("<td> <input type='checkbox'" + checked + " onclick='return false;' /></td>");
 			out.print("<td>" + objRoom.getPrice() + "</td>");
 			out.print("</tr>");
 		}
