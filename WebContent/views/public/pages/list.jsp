@@ -35,9 +35,9 @@
 	 	return false;
 	 }
 			
-	public boolean checkIdAccept(List<Boot> listBoots, int idMember, int idRoom){
+	public boolean checkIdAccept(List<Boot> listBoots, int idStudent, int idRoom){
 	 	for(Boot objBoot : listBoots){
-	 		if(objBoot.getRoom().getId()==idRoom && objBoot.getMember().getId()==idMember && objBoot.isAccept()) return true;
+	 		if(objBoot.getRoom().getId()==idRoom && objBoot.getStudent().getId()==idStudent && objBoot.isAccept()) return true;
 	 	}
 	 	return false;
 	}
@@ -115,7 +115,7 @@
 	   List<Room> listRooms = (List<Room>) request.getAttribute("listRooms");
 	   if(listRooms.size()>0){
 		   for(Room objRoom: listRooms){
-			   int idMember = userLogin!=null? userLogin.getId() : 0;
+			   int idStudent = userLogin!=null? userLogin.getId() : 0;
 	   %>
 	     <tr>
 	       <td><%=objRoom.getName() %></td>
@@ -125,8 +125,8 @@
 	       <td><%=objRoom.getPrice() %></td>
 	       <td style="<%if(userLogin==null) out.print("display: none"); %>"><a href="javascript:void(0)">
 	       		<img style="width:60px;height:50px;" alt="" src="<%=request.getContextPath()%>/uploads/images/like.jpg"></a></td>
-	       <td style="<%if(userLogin==null) out.print("display: none"); %>"><a href="javascript:void(0)" onclick="onSelectRoom(<%if(listBoots!=null) out.print(checkIdAccept(listBoots, idMember, objRoom.getId()));%>,<%=objRoom.getId() %>)">
-	       		<img style="width:40px;height:50px;" class="select" alt="<%if(listBoots!=null) out.print(checkIdAccept(listBoots, idMember, objRoom.getId()));%>"
+	       <td style="<%if(userLogin==null) out.print("display: none"); %>"><a href="javascript:void(0)" onclick="onSelectRoom(<%if(listBoots!=null) out.print(checkIdAccept(listBoots, idStudent, objRoom.getId()));%>,<%=objRoom.getId() %>)">
+	       		<img style="width:40px;height:50px;" class="select" alt="<%if(listBoots!=null) out.print(checkIdAccept(listBoots, idStudent, objRoom.getId()));%>"
 	       		src="<%=request.getContextPath()%>/uploads/images/<%if(listBoots!=null && checkIdRoom(listBoots, objRoom.getId())) out.print("tick.png"); else out.print("cancel.png"); %>"></a></td>
 	     </tr>
 	     <%

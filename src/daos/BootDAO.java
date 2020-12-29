@@ -23,7 +23,7 @@ public class BootDAO extends AbstractDAO {
 			while (rs.next()) {
 				Boot item = new Boot(rs.getInt("b.id"),
 						new Student(rs.getString("s.firstname"), rs.getString("s.lastname")),
-						new Room(rs.getInt("r.id") ,rs.getString("r.name")), rs.getBoolean("b.accept"));
+						new Room(rs.getInt("r.id") ,rs.getString("r.name")), rs.getBoolean("b.accepted"));
 				listItems.add(item);
 			}
 		} catch (SQLException e) {
@@ -43,8 +43,8 @@ public class BootDAO extends AbstractDAO {
 			pst.setInt(1, idStudent);
 			rs = pst.executeQuery();
 			while (rs.next()) {
-				Boot item = new Boot(rs.getInt("id"), new Member(rs.getInt("id_member")),
-						new Room(rs.getInt("id_room")), rs.getBoolean("status"), rs.getBoolean("accept"));
+				Boot item = new Boot(rs.getInt("id"), new Student(rs.getInt("id_student")),
+						new Room(rs.getInt("id_room")), rs.getBoolean("status"), rs.getBoolean("accepted"));
 				listItems.add(item);
 			}
 		} catch (SQLException e) {
@@ -112,7 +112,7 @@ public class BootDAO extends AbstractDAO {
 	public int editAccept(Boot boot) {
 		int results = 0;
 		con = DBConnectionUtil.getConnection();
-		String sqlBoot = "UPDATE boots SET accept = ? WHERE id = ?";
+		String sqlBoot = "UPDATE boots SET accepted = ? WHERE id = ?";
 		String sqlRoom = "UPDATE rooms SET status = !status WHERE id = ?";
 		try {
 			pst = con.prepareStatement(sqlBoot);

@@ -41,7 +41,7 @@
 							%>
 								<tr>
 									<td class="center"><%=objBoot.getRoom().getName() %></td>
-									<td class="center"><%=objBoot.getMember().getFullName() %></td>
+									<td class="center"><%=objBoot.getStudent().getFullName() %></td>
 									<td class="center">
 										<a href="javascript: void(0)"><img width="20px" height="20px" class="<%=objBoot.getRoom().getId() %>"
 										src="<%=request.getContextPath()%>/uploads/images/<%=picture %>" alt="<%=objBoot.getId() %>" />

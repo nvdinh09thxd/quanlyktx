@@ -133,7 +133,7 @@ public class PublicIndexController extends HttpServlet {
 	protected void SelectRoom(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		int idRoom = Integer.parseInt(request.getParameter("aid"));
-		Boot boot = new Boot(new Room(idRoom), true);
+		Boot boot = new Boot(new Room(idRoom), new Student(userLogin.getId()), true);
 		boolean check = false;
 		listBoots = (List<Boot>) session.getAttribute("listBoots");
 		for (Boot objBoot : listBoots) {

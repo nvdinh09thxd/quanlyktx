@@ -14,9 +14,10 @@ public class Boot {
 	private boolean status;
 	private boolean accept;
 
-	public Boot(Room room, boolean status) {
+	public Boot(Room room, Student student, boolean status) {
 		super();
 		this.room = room;
+		this.student = student;
 		this.status = status;
 	}
 
