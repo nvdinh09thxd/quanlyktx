@@ -27,14 +27,12 @@
 <!-- ################################################################################################ -->
 <div class="wrapper row3">
   <main class="hoc container clear">
-  <%!
-	  public boolean checkIdRoom(List<Boot> listBoots, int idRoom){
+  <%!public boolean checkIdRoom(List<Boot> listBoots, int idRoom){
 	  	for(Boot objBoot : listBoots){
 	  		if(objBoot.getRoom().getId()==idRoom && objBoot.isStatus()) return true;
 	  	}
 	  	return false;
-	  }
-  %>
+	  }%>
     <!-- main body -->
     <!-- ################################################################################################ -->
     <%

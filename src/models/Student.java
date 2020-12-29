@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Member {
+public class Student {
 	private int id;
 	private String firstName;
 	private String lastName;
@@ -15,13 +15,14 @@ public class Member {
 	private String address;
 	private String email;
 	private String password;
+	private int id_user;
 
-	public Member(int id) {
+	public Student(int id) {
 		super();
 		this.id = id;
 	}
 
-	public Member(String firstName, String lastName) {
+	public Student(String firstName, String lastName) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;

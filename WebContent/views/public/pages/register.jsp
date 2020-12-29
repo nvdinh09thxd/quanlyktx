@@ -1,3 +1,5 @@
+<%@page import="models.User"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/templates/public/inc/header.jsp" %>
@@ -64,6 +66,21 @@
 					<label for="password">Password <sup>*</sup></label>
 					<input type="password" value="" name="password" id="password" class="form-control input-feild">
 					<span class="min-pass">(Five characters minimum)</span>
+				</div>
+				<div class="form-group primary-form-group p-info-group">
+					<label for="admin">Nhân viên quản lý<sup>*</sup></label>
+					<select id="id_user" name="id_user" class="form-control">
+                    <%
+                    if(request.getAttribute("listUsers")!=null) {
+                    	List<User> listUsers = (List<User>) request.getAttribute("listUsers");
+                    	if(listUsers.size()>0){
+                    		for(User cat : listUsers){
+                    %>
+                     <option value="<%=cat.getId()%>"><%=cat.getFullname() %></option>
+                    <%
+                   		}}}
+                    %>
+                    </select>
 				</div>
 				<div class="form-group primary-form-group p-info-group">
 					<label class="cheker">

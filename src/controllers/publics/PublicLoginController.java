@@ -10,18 +10,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import daos.MemberDao;
-import models.Member;
+import daos.StudentDao;
+import models.Student;
 import util.StringUtil;
 
 @WebServlet("/login")
 public class PublicLoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private MemberDao memberDao;
+	private StudentDao memberDao;
 
 	public PublicLoginController() {
 		super();
-		memberDao = new MemberDao();
+		memberDao = new StudentDao();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -41,7 +41,7 @@ public class PublicLoginController extends HttpServlet {
 		// Nếu tồn tại username và password trong csdl thì chuyển hướng đến trang admin
 		if (memberDao.getItem(email, password) != null) {
 			HttpSession session = request.getSession();
-			Member userLogin = memberDao.getItem(email, password);
+			Student userLogin = memberDao.getItem(email, password);
 			session.setAttribute("userLogin", userLogin);
 			response.sendRedirect(request.getContextPath() + "/index");
 		} else {

@@ -1,4 +1,4 @@
-<%@page import="models.Member"%>
+<%@page import="models.Student"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -8,7 +8,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <link href="<%=request.getContextPath()%>/templates/public/css/layout.css" rel="stylesheet" type="text/css" media="all">
-<script src="<%=request.getContextPath() %>/templates/public/js/jquery.min.js"></script>
+<script src="<%=request.getContextPath()%>/templates/public/js/jquery.min.js"></script>
 </head>
 <body id="top">
 <!-- ################################################################################################ -->
@@ -22,8 +22,8 @@
       <!-- ################################################################################################ -->
       <div class="fl_left">
       	<%
-			      Member userLogin = (Member) session.getAttribute("userLogin");
-		    %>
+      		Student userLogin = (Student) session.getAttribute("userLogin");
+      	%>
         <ul class="nospace">
           <li><a href="#"><i class="fa fa-lg fa-home"></i></a></li>
           <li><a href="#">About</a></li>

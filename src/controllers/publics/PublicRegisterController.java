@@ -1,6 +1,7 @@
 package controllers.publics;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,21 +10,26 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import daos.MemberDao;
-import models.Member;
+import daos.StudentDao;
+import daos.UserDao;
+import models.Student;
+import models.User;
 
 @WebServlet("/register")
 public class PublicRegisterController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	MemberDao memberDao;
+	StudentDao studentDao;
 
 	public PublicRegisterController() {
 		super();
-		memberDao = new MemberDao();
+		studentDao = new StudentDao();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		UserDao userDao = new UserDao();
+		List<User> listUsers = userDao.findAll();
+		request.setAttribute("listUsers", listUsers);
 		RequestDispatcher rd = request.getRequestDispatcher("/views/public/pages/register.jsp");
 		rd.forward(request, response);
 	}
@@ -40,9 +46,10 @@ public class PublicRegisterController extends HttpServlet {
 		String address = request.getParameter("address");
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
+		int id_user = Integer.parseInt(request.getParameter("id_user"));
 		password = util.StringUtil.md5(password);
-		Member member = new Member(0, firstname, lastname, gender, address, email, password);
-		if (memberDao.addItem(member) > 0) {
+		Student member = new Student(0, firstname, lastname, gender, address, email, password, id_user);
+		if (studentDao.addItem(member) > 0) {
 			response.sendRedirect(request.getContextPath() + "/index?msg=1");
 			return;
 		} else {

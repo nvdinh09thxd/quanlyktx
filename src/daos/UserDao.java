@@ -9,7 +9,7 @@ import util.DBConnectionUtil;
 
 public class UserDao extends AbstractDAO {
 
-	public List<User> getItems() {
+	public List<User> findAll() {
 		con = DBConnectionUtil.getConnection();
 		List<User> listItems = new ArrayList<>();
 		String sql = "SELECT * FROM users ORDER BY id";

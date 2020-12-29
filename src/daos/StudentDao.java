@@ -2,15 +2,15 @@ package daos;
 
 import java.sql.SQLException;
 
-import models.Member;
+import models.Student;
 import util.DBConnectionUtil;
 
-public class MemberDao extends AbstractDAO {
+public class StudentDao extends AbstractDAO {
 
-	public int addItem(Member item) {
+	public int addItem(Student item) {
 		int result = 0;
 		con = DBConnectionUtil.getConnection();
-		String sql = "INSERT INTO members (firstname, lastname, gender, address, email, password) VALUES (?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO students (firstname, lastname, gender, address, email, password, id_user) VALUES (?, ?, ?, ?, ?, ?, ?)";
 		try {
 			pst = con.prepareStatement(sql);
 			pst.setString(1, item.getFirstName());
@@ -19,6 +19,7 @@ public class MemberDao extends AbstractDAO {
 			pst.setString(4, item.getAddress());
 			pst.setString(5, item.getEmail());
 			pst.setString(6, item.getPassword());
+			pst.setInt(7, item.getId_user());
 			result = pst.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -28,19 +29,19 @@ public class MemberDao extends AbstractDAO {
 		return result;
 	}
 
-	public Member getItem(String email, String password) {
+	public Student getItem(String email, String password) {
 		con = DBConnectionUtil.getConnection();
-		String sql = "SELECT * FROM members WHERE email = ? AND password = ?";
-		Member item = null;
+		String sql = "SELECT * FROM students WHERE email = ? AND password = ?";
+		Student item = null;
 		try {
 			pst = con.prepareStatement(sql);
 			pst.setString(1, email);
 			pst.setString(2, password);
 			rs = pst.executeQuery();
 			if (rs.next()) {
-				item = new Member(rs.getInt("id"), rs.getString("firstname"), rs.getString("lastname"),
+				item = new Student(rs.getInt("id"), rs.getString("firstname"), rs.getString("lastname"),
 						rs.getBoolean("gender"), rs.getString("address"), rs.getString("email"),
-						rs.getString("password"));
+						rs.getString("password"), rs.getInt("id_user"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

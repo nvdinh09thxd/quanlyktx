@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 import daos.BootDAO;
 import daos.RoomDAO;
 import models.Boot;
-import models.Member;
+import models.Student;
 import models.Room;
 
 @WebServlet("/index")
@@ -27,7 +27,7 @@ public class PublicIndexController extends HttpServlet {
 	List<Room> listRooms;
 	List<Boot> listBoots;
 	HttpSession session;
-	Member userLogin;
+	Student userLogin;
 
 	public PublicIndexController() {
 		super();
@@ -41,8 +41,8 @@ public class PublicIndexController extends HttpServlet {
 			throws ServletException, IOException {
 		session = request.getSession();
 		if (session.getAttribute("userLogin") != null && session.getAttribute("listBoots") == null) {
-			userLogin = (Member) session.getAttribute("userLogin");
-			List<Boot> listBoots = bootDao.findByMember(userLogin.getId());
+			userLogin = (Student) session.getAttribute("userLogin");
+			List<Boot> listBoots = bootDao.findByStudent(userLogin.getId());
 			session.setAttribute("listBoots", listBoots);
 		}
 		listRooms = roomDao.findAll();
@@ -177,7 +177,7 @@ public class PublicIndexController extends HttpServlet {
 			}
 		}
 		// sau khi lưu thông tin đặt phòng thì set lại listBoots
-		List<Boot> listBoots = bootDao.findByMember(userLogin.getId());
+		List<Boot> listBoots = bootDao.findByStudent(userLogin.getId());
 		session.setAttribute("listBoots", listBoots);
 	}
 

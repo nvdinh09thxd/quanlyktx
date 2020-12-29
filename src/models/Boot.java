@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Boot {
 	private int id;
-	private Member member;
+	private Student student;
 	private Room room;
 	private boolean status;
 	private boolean accept;
@@ -20,10 +20,10 @@ public class Boot {
 		this.status = status;
 	}
 
-	public Boot(int id, Member member, Room room, boolean accept) {
+	public Boot(int id, Student student, Room room, boolean accept) {
 		super();
 		this.id = id;
-		this.member = member;
+		this.student = student;
 		this.room = room;
 		this.accept = accept;
 	}
