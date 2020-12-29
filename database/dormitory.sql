@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th12 25, 2020 lúc 10:51 AM
+-- Thời gian đã tạo: Th12 26, 2020 lúc 01:26 PM
 -- Phiên bản máy phục vụ: 10.1.32-MariaDB
--- Phiên bản PHP: 7.1.17
+-- Phiên bản PHP: 7.2.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -63,10 +63,10 @@ CREATE TABLE `boots` (
 
 INSERT INTO `boots` (`id`, `id_member`, `id_room`, `status`, `accept`) VALUES
 (1, 1, 1, 1, 1),
-(2, 1, 2, 0, 0),
-(5, 1, 3, 1, 1),
+(2, 1, 2, 1, 1),
+(5, 1, 3, 1, 0),
 (18, 1, 5, 0, 0),
-(19, 1, 4, 0, 0);
+(19, 1, 4, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -125,8 +125,8 @@ CREATE TABLE `rooms` (
 
 INSERT INTO `rooms` (`id`, `name`, `area`, `number_of_bed`, `have_toilet`, `price`, `status`) VALUES
 (1, 'A101', 1, 8, 1, 400000, 0),
-(2, 'A102', 1, 6, 0, 600000, 1),
-(3, 'B102', 2, 6, 1, 700000, 0),
+(2, 'A102', 1, 6, 0, 600000, 0),
+(3, 'B102', 2, 6, 1, 700000, 1),
 (4, 'C101', 3, 4, 1, 1200000, 1),
 (5, 'D102', 4, 8, 0, 800000, 1);
 
@@ -211,7 +211,7 @@ ALTER TABLE `area`
 -- AUTO_INCREMENT cho bảng `boots`
 --
 ALTER TABLE `boots`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT cho bảng `empty_rooms`

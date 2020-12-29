@@ -27,12 +27,21 @@
 <!-- ################################################################################################ -->
 <div class="wrapper row3">
   <main class="hoc container clear">
-  <%!public boolean checkIdRoom(List<Boot> listBoots, int idRoom){
-	  	for(Boot objBoot : listBoots){
-	  		if(objBoot.getRoom().getId()==idRoom && objBoot.isStatus()) return true;
-	  	}
-	  	return false;
-	  }%>
+ <%!
+	 public boolean checkIdRoom(List<Boot> listBoots, int idRoom){
+	 	for(Boot objBoot : listBoots){
+	 		if(objBoot.getRoom().getId()==idRoom && objBoot.isStatus()) return true;
+	 	}
+	 	return false;
+	 }
+			
+	public boolean checkIdAccept(List<Boot> listBoots, int idMember, int idRoom){
+	 	for(Boot objBoot : listBoots){
+	 		if(objBoot.getRoom().getId()==idRoom && objBoot.getMember().getId()==idMember && objBoot.isAccept()) return true;
+	 	}
+	 	return false;
+	}
+ %>
     <!-- main body -->
     <!-- ################################################################################################ -->
     <%
@@ -66,10 +75,10 @@
 	      	<th>
 		      	<select style="color: blue" onchange="filterName(2)" id="area">
 				  <option value="0">--Chọn khu vực--</option>
-				  <option value="1">A</option>
-				  <option value="2">B</option>
-				  <option value="3">C</option>
-				  <option value="4">D</option>
+				  <option value="1">Khu A</option>
+				  <option value="2">Khu B</option>
+				  <option value="3">Khu C</option>
+				  <option value="4">Khu D</option>
 				</select>
 			</th>
 	      	<th>
@@ -106,17 +115,18 @@
 	   List<Room> listRooms = (List<Room>) request.getAttribute("listRooms");
 	   if(listRooms.size()>0){
 		   for(Room objRoom: listRooms){
+			   int idMember = userLogin!=null? userLogin.getId() : 0;
 	   %>
 	     <tr>
 	       <td><%=objRoom.getName() %></td>
-	       <td><%=objRoom.getArea() %></td>
+	       <td>Khu <%=objRoom.getArea().getName() %></td>
 	       <td><%=objRoom.getNumberOfBed() %> giường</td>
-	       <td><input type="checkbox" <%if(objRoom.isHaveTolet()) out.print("checked"); %>></td>
+	       <td><input type="checkbox" <%if(objRoom.isHaveTolet()) out.print("checked"); %> onclick="return false;" ></td>
 	       <td><%=objRoom.getPrice() %></td>
 	       <td style="<%if(userLogin==null) out.print("display: none"); %>"><a href="javascript:void(0)">
 	       		<img style="width:60px;height:50px;" alt="" src="<%=request.getContextPath()%>/uploads/images/like.jpg"></a></td>
-	       <td style="<%if(userLogin==null) out.print("display: none"); %>"><a href="javascript:void(0)" onclick="onSelectRoom(<%=objRoom.getId() %>)">
-	       		<img style="width:40px;height:50px;" class="select"
+	       <td style="<%if(userLogin==null) out.print("display: none"); %>"><a href="javascript:void(0)" onclick="onSelectRoom(<%if(listBoots!=null) out.print(checkIdAccept(listBoots, idMember, objRoom.getId()));%>,<%=objRoom.getId() %>)">
+	       		<img style="width:40px;height:50px;" class="select" alt="<%if(listBoots!=null) out.print(checkIdAccept(listBoots, idMember, objRoom.getId()));%>"
 	       		src="<%=request.getContextPath()%>/uploads/images/<%if(listBoots!=null && checkIdRoom(listBoots, objRoom.getId())) out.print("tick.png"); else out.print("cancel.png"); %>"></a></td>
 	     </tr>
 	     <%
@@ -132,24 +142,29 @@
 <script type="text/javascript">
 function filterName(number){
 	let value;
-	if(number==1){
-		value = $("#name").val();
-	} else if(number==2){
-		value = $("#area").val();
-	} else if(number==3){
-		let arVal = [];
-        $('.bed:checked').each(function(i){
-        	arVal[i] = parseInt($(this).val());
-        });
-        value = JSON.stringify(arVal);
-	} else if(number==4){
-		$('.toilet:checked').each(function(i){
-			value = $(this).val();
-        });
-	} else {
-		value = $("#price").val();
+	switch(number){
+		case 1:
+			value = $("#name").val();
+			break;
+		case 2:
+			value = $("#area").val();
+			break;
+		case 3:
+			let arVal = [];
+	        $('.bed:checked').each(function(i){
+	        	arVal[i] = parseInt($(this).val());
+	        });
+	        value = JSON.stringify(arVal);
+			break;
+		case 4:
+			$('.toilet:checked').each(function(i){
+				value = $(this).val();
+	        });
+			break;
+		case 5:
+			value = $("#price").val();
+			break;
 	}
-	//alert(value);
 	
 	$.ajax({
 		url: '<%=request.getContextPath()%>/index',
@@ -169,24 +184,29 @@ function filterName(number){
 
 $("img[class=select]").click(function(){
 	let image = $(this);
-	$.ajax({
-		url: '<%=request.getContextPath()%>/index',
-			type : 'POST',
-			cache : false,
-			data : {
-				asrc : image.attr("src")
-			},
-			success : function(data) {
-				image.attr("src", data)
-			},
-			error : function() {
-				alert("Có lỗi xảy ra");
-			}
-		});
+	if(image.attr("alt")==="false") {
+		$.ajax({
+			url: '<%=request.getContextPath()%>/index',
+				type : 'POST',
+				cache : false,
+				data : {
+					asrc : image.attr("src")
+				},
+				success : function(data) {
+					image.attr("src", data)
+				},
+				error : function() {
+					alert("Có lỗi xảy ra");
+				}
+			});
+	}
 });
 
-function onSelectRoom(id){
-	//alert(id);
+function onSelectRoom(check, id){
+	if(check) {
+		alert("Không thể hủy phòng đã được xác nhận!");
+		exit();
+	}
 	$.ajax({
 		url: '<%=request.getContextPath()%>/index',
 		type: 'POST',
@@ -194,7 +214,6 @@ function onSelectRoom(id){
 			aid: id,
 		},
 		success: function(data){
-			//alert("Đã chọn!");
 		},
 		error: function (){
 			alert('Có lỗi xảy ra');
@@ -210,7 +229,7 @@ function onSaveBoot(idMember){
 			aidMember: idMember,
 		},
 		success: function(data){
-			alert("Đã lưu!");
+			alert("Đặt phòng thành công!");
 		},
 		error: function (){
 			alert('Có lỗi xảy ra');

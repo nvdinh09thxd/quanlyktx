@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class Room {
 	private int id;
 	private String name;
-	private int area;
+	private Area area;
 	private int numberOfBed;
 	private boolean haveTolet;
 	private float price;

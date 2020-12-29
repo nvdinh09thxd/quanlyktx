@@ -47,7 +47,7 @@
 					</span>
 
 					<div class="wrap-input100 validate-input m-b-16" data-validate = "Valid email is required: ex@abc.xyz">
-						<input class="input100" type="text" name="username" placeholder="Username" value="<%if(username!=null) out.print(username); %>" >
+						<input class="input100" type="text" name="username" placeholder="Username" value="<%if(username!=null) out.print(username); else out.print("admin"); %>" >
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<span class="lnr lnr-envelope"></span>

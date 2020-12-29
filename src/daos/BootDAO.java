@@ -43,7 +43,8 @@ public class BootDAO extends AbstractDAO {
 			pst.setInt(1, idStudent);
 			rs = pst.executeQuery();
 			while (rs.next()) {
-				Boot item = new Boot(new Room(rs.getInt("id_room")), rs.getBoolean("status"));
+				Boot item = new Boot(rs.getInt("id"), new Member(rs.getInt("id_member")),
+						new Room(rs.getInt("id_room")), rs.getBoolean("status"), rs.getBoolean("accept"));
 				listItems.add(item);
 			}
 		} catch (SQLException e) {
@@ -118,7 +119,7 @@ public class BootDAO extends AbstractDAO {
 			pst.setBoolean(1, boot.isAccept());
 			pst.setInt(2, boot.getId());
 			results = pst.executeUpdate();
-			
+
 			pst = con.prepareStatement(sqlRoom);
 			pst.setInt(1, boot.getRoom().getId());
 			results = pst.executeUpdate();
