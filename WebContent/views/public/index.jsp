@@ -7,9 +7,9 @@
   <div id="pageintro" class="hoc clear"> 
     <!-- ################################################################################################ -->
     <article class="introtxt">
-      <p>Nullam commodo sem sed nunc suscipit non suscipit lectus suspendisse.</p>
-      <h2 class="heading">Feugiat mauris vitae laoreet nullam cursus in</h2>
-      <footer><a class="btn" href="#">Fermentum scelerisque</a></footer>
+      <p>Đây là chương trình Quản lý Ký Túc Xá Sinh viên DMC</p>
+      <h1 class="heading">KÝ TÚC XÁ SINH VIÊN DMC ĐÀ NẴNG</h1>
+      <footer><a class="btn" href="#">Hòa Khánh - Liên Chiểu</a></footer>
     </article>
     <!-- ################################################################################################ -->
     <div class="clear"></div>

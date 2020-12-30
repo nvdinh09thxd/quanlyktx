@@ -3,17 +3,17 @@
     pageEncoding="UTF-8"%>
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="<%=request.getContextPath() %>/auth/logout" class="brand-link">
+      <%
+      	User UserLogin = (User) session.getAttribute("userInfo");
+      %>
+    <a style="<%if(UserLogin==null) out.print("display: none"); %>" href="<%=request.getContextPath() %>/auth/logout" class="brand-link">
       <img src="<%=request.getContextPath() %>/templates/admin/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">AdminLTE 3</span>
+      <span class="brand-text font-weight-light">Logout</span>
     </a>
 
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
-      <%
-      	User UserLogin = (User) session.getAttribute("userInfo");
-      %>
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
           <img src="<%=request.getContextPath() %>/templates/admin/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
@@ -67,7 +67,7 @@
               <li class="nav-item">
                 <a href="<%=request.getContextPath() %>/admin/report" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Thống kê, báo cáo</p>
+                  <p>Danh sách các phòng trống</p>
                 </a>
               </li>
             </ul>

@@ -42,7 +42,7 @@ public class PublicIndexController extends HttpServlet {
 		session = request.getSession();
 		if (session.getAttribute("userLogin") != null && session.getAttribute("listBoots") == null) {
 			userLogin = (Student) session.getAttribute("userLogin");
-			List<Boot> listBoots = bootDao.findByStudent(userLogin.getId());
+			listBoots = bootDao.findByStudent(userLogin.getId());
 			session.setAttribute("listBoots", listBoots);
 		}
 		listRooms = roomDao.findAll();

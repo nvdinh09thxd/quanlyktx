@@ -14,7 +14,7 @@ public class BootDAO extends AbstractDAO {
 	public List<Boot> findAll() {
 		con = DBConnectionUtil.getConnection();
 		List<Boot> listItems = new ArrayList<>();
-		String sql = "SELECT b.id, b.accept, s.firstname, s.lastname, r.id, r.name FROM boots b"
+		String sql = "SELECT b.id, b.accepted, s.firstname, s.lastname, r.id, r.name FROM boots b"
 				+ " JOIN students s ON b.id_student = s.id JOIN rooms r ON b.id_room = r.id"
 				+ " WHERE b.status = 1 ORDER BY b.id";
 		try {
