@@ -56,7 +56,7 @@ public class PublicIndexController extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html");
-		if (request.getParameter("aid") != null) {
+		if (request.getParameter("aidRoom") != null) {
 			SelectRoom(request, response);
 		} else if (request.getParameter("asrc") != null) {
 			changeIcon(request, response);
@@ -93,7 +93,7 @@ public class PublicIndexController extends HttpServlet {
 				String[] myList = value.split(",");
 				if (myList.length > 0 && myList[0].length() != 0) {
 					for (String obj : myList) {
-						if (objRoom.getNumberOfBed() == Integer.parseInt(obj))
+						if (objRoom.getTotalBed() == Integer.parseInt(obj))
 							listRoomsFilter.add(objRoom);
 					}
 				} else {
@@ -110,7 +110,7 @@ public class PublicIndexController extends HttpServlet {
 				}
 				if ("1".equals(value) && objRoom.getPrice() < 500000)
 					listRoomsFilter.add(objRoom);
-				if ("2".equals(value) && 500000 < objRoom.getPrice() && objRoom.getPrice() < 1000000)
+				if ("2".equals(value) && 500000 <= objRoom.getPrice() && objRoom.getPrice() <= 1000000)
 					listRoomsFilter.add(objRoom);
 				if ("3".equals(value) && objRoom.getPrice() > 1000000)
 					listRoomsFilter.add(objRoom);
@@ -122,7 +122,8 @@ public class PublicIndexController extends HttpServlet {
 			out.print("<tr>");
 			out.print("<td>" + objRoom.getName() + "</td>");
 			out.print("<td>Khu " + objRoom.getArea().getName() + "</td>");
-			out.print("<td>" + objRoom.getNumberOfBed() + " giường</td>");
+			out.print("<td>" + objRoom.getTotalBed() + " giường</td>");
+			out.print("<td>" + objRoom.getEmptyBed() + " giường</td>");
 			out.print("<td> <input type='checkbox'" + checked + " onclick='return false;' /></td>");
 			out.print("<td>" + objRoom.getPrice() + "</td>");
 			out.print("</tr>");
@@ -132,7 +133,7 @@ public class PublicIndexController extends HttpServlet {
 	@SuppressWarnings("unchecked")
 	protected void SelectRoom(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		int idRoom = Integer.parseInt(request.getParameter("aid"));
+		int idRoom = Integer.parseInt(request.getParameter("aidRoom"));
 		Boot boot = new Boot(new Room(idRoom), new Student(userLogin.getId()), true);
 		boolean check = false;
 		listBoots = (List<Boot>) session.getAttribute("listBoots");
@@ -167,12 +168,12 @@ public class PublicIndexController extends HttpServlet {
 	@SuppressWarnings("unchecked")
 	protected void saveBoot(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		int idMember = Integer.parseInt(request.getParameter("aidMember"));
+		int idStudent = Integer.parseInt(request.getParameter("aidStudent"));
 		listBoots = (List<Boot>) session.getAttribute("listBoots");
 		if (listBoots != null && listBoots.size() > 0) {
 			for (Boot objBoot : listBoots) {
-				if (bootDao.add(objBoot, idMember) == 0) {
-					bootDao.edit(objBoot, idMember);
+				if (bootDao.add(objBoot, idStudent) == 0) {
+					bootDao.edit(objBoot, idStudent);
 				}
 			}
 		}

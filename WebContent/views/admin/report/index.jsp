@@ -49,12 +49,13 @@
 	    "use strict";
 	    let myData  = [];
 		<%if(listRooms != null){for(Room objRoom: listRooms){%>
-			myData.push({id: "<%=objRoom.getId()%>", name: "<%=objRoom.getName()%>"});
+			myData.push({id: "<%=objRoom.getId()%>", name: "<%=objRoom.getName()%>", empty_bed: "<%=objRoom.getEmptyBed()%>"});
 		<%}}%>
 	    $("#grid").jqGrid({
 	        colModel: [
 	            { name: "id" },
-	            { name: "name" }
+	            { name: "name" },
+	            { name: "empty_bed" }
 	        ],
 	        data: myData
 	    });

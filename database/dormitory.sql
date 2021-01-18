@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th12 30, 2020 lúc 04:29 AM
+-- Thời gian đã tạo: Th1 18, 2021 lúc 10:49 AM
 -- Phiên bản máy phục vụ: 10.1.32-MariaDB
 -- Phiên bản PHP: 7.1.17
 
@@ -62,11 +62,11 @@ CREATE TABLE `boots` (
 --
 
 INSERT INTO `boots` (`id`, `id_student`, `id_room`, `status`, `accepted`) VALUES
-(1, 1, 1, 0, 0),
-(2, 1, 3, 0, 0),
-(3, 1, 5, 1, 0),
-(4, 1, 4, 1, 1),
-(5, 1, 2, 0, 0);
+(16, 1, 1, 1, 1),
+(31, 1, 2, 0, 0),
+(50, 1, 3, 1, 1),
+(54, 1, 4, 0, 0),
+(63, 1, 5, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -78,22 +78,22 @@ CREATE TABLE `rooms` (
   `id` int(11) NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `area` int(11) NOT NULL,
-  `number_of_bed` int(11) NOT NULL,
+  `total_bed` int(11) NOT NULL,
+  `empty_bed` int(11) NOT NULL,
   `have_toilet` tinyint(1) NOT NULL,
-  `price` float NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '1'
+  `price` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `rooms`
 --
 
-INSERT INTO `rooms` (`id`, `name`, `area`, `number_of_bed`, `have_toilet`, `price`, `status`) VALUES
-(1, 'A101', 1, 8, 1, 400000, 1),
-(2, 'A102', 1, 6, 0, 600000, 1),
-(3, 'B102', 2, 6, 1, 700000, 1),
-(4, 'C101', 3, 4, 1, 1200000, 0),
-(5, 'D102', 4, 8, 0, 800000, 1);
+INSERT INTO `rooms` (`id`, `name`, `area`, `total_bed`, `empty_bed`, `have_toilet`, `price`) VALUES
+(1, 'A101', 1, 8, 7, 1, 400000),
+(2, 'A102', 1, 6, 6, 0, 600000),
+(3, 'B102', 2, 6, 5, 1, 700000),
+(4, 'C101', 3, 4, 4, 1, 1200000),
+(5, 'D102', 4, 8, 7, 0, 800000);
 
 -- --------------------------------------------------------
 

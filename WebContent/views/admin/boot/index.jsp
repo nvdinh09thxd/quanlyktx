@@ -66,8 +66,9 @@
 <script>
     $("img").click(function(){
 	    var image = $(this);
-	    $.ajax({
-			url: '<%=request.getContextPath()%>/admin/boot',
+	    if(image.attr("src").includes("deactive")){
+	    	$.ajax({
+				url: '<%=request.getContextPath()%>/admin/boot',
 				type : 'POST',
 				cache : false,
 				data : {
@@ -82,6 +83,7 @@
 					alert("Có lỗi xảy ra");
 				}
 			});
-		});
+	    }
+	});
 </script>
 <%@ include file="/templates/admin/inc/footer.jsp"%>

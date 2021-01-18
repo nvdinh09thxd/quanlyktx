@@ -17,11 +17,11 @@ import util.StringUtil;
 @WebServlet("/login")
 public class PublicLoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private StudentDao memberDao;
+	private StudentDao studentDao;
 
 	public PublicLoginController() {
 		super();
-		memberDao = new StudentDao();
+		studentDao = new StudentDao();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -44,9 +44,9 @@ public class PublicLoginController extends HttpServlet {
 		// mã hóa password bằng phương thức md5
 		password = StringUtil.md5(password);
 		// Nếu tồn tại username và password trong csdl thì chuyển hướng đến trang admin
-		if (memberDao.getItem(email, password) != null) {
+		if (studentDao.getItem(email, password) != null) {
 			HttpSession session = request.getSession();
-			Student userLogin = memberDao.getItem(email, password);
+			Student userLogin = studentDao.getItem(email, password);
 			session.setAttribute("userLogin", userLogin);
 			response.sendRedirect(request.getContextPath() + "/index");
 		} else {

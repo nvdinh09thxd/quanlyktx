@@ -11,7 +11,8 @@ public class Room {
 	private int id;
 	private String name;
 	private Area area;
-	private int numberOfBed;
+	private int totalBed;
+	private int emptyBed;
 	private boolean haveTolet;
 	private float price;
 

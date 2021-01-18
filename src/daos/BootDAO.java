@@ -23,7 +23,7 @@ public class BootDAO extends AbstractDAO {
 			while (rs.next()) {
 				Boot item = new Boot(rs.getInt("b.id"),
 						new Student(rs.getString("s.firstname"), rs.getString("s.lastname")),
-						new Room(rs.getInt("r.id") ,rs.getString("r.name")), rs.getBoolean("b.accepted"));
+						new Room(rs.getInt("r.id"), rs.getString("r.name")), rs.getBoolean("b.accepted"));
 				listItems.add(item);
 			}
 		} catch (SQLException e) {
@@ -55,25 +55,6 @@ public class BootDAO extends AbstractDAO {
 		return listItems;
 	}
 
-	public int addList(List<Boot> listBoots, int idStudent) {
-		int result = 0;
-		con = DBConnectionUtil.getConnection();
-		String sql = "INSERT INTO boots (id_student, id_room) VALUES (?, ?)";
-		try {
-			pst = con.prepareStatement(sql);
-			for (Boot objBoot : listBoots) {
-				pst.setInt(1, idStudent);
-				pst.setInt(2, objBoot.getRoom().getId());
-				result = pst.executeUpdate();
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			DBConnectionUtil.close(pst, con);
-		}
-		return result;
-	}
-
 	public int add(Boot boot, int idStudent) {
 		int result = 0;
 		con = DBConnectionUtil.getConnection();
@@ -91,15 +72,15 @@ public class BootDAO extends AbstractDAO {
 		return result;
 	}
 
-	public int edit(Boot objBoot, int idStudent) {
+	public int edit(Boot boot, int idStudent) {
 		int results = 0;
 		con = DBConnectionUtil.getConnection();
 		String sql = "UPDATE boots SET status = ? WHERE id_student = ? AND id_room = ?";
 		try {
 			pst = con.prepareStatement(sql);
-			pst.setBoolean(1, objBoot.isStatus());
+			pst.setBoolean(1, boot.isStatus());
 			pst.setInt(2, idStudent);
-			pst.setInt(3, objBoot.getRoom().getId());
+			pst.setInt(3, boot.getRoom().getId());
 			results = pst.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -113,7 +94,7 @@ public class BootDAO extends AbstractDAO {
 		int results = 0;
 		con = DBConnectionUtil.getConnection();
 		String sqlBoot = "UPDATE boots SET accepted = ? WHERE id = ?";
-		String sqlRoom = "UPDATE rooms SET status = !status WHERE id = ?";
+		String sqlRoom = "UPDATE rooms SET empty_bed = empty_bed - 1 WHERE id = ?";
 		try {
 			pst = con.prepareStatement(sqlBoot);
 			pst.setBoolean(1, boot.isAccept());

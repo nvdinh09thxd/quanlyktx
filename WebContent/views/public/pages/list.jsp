@@ -28,13 +28,15 @@
 <div class="wrapper row3">
   <main class="hoc container clear">
  <%!
+ 	/* Kiểm tra id room đã có trong list boot chưa (phòng này đã đặt chưa) */
 	 public boolean checkIdRoom(List<Boot> listBoots, int idRoom){
 	 	for(Boot objBoot : listBoots){
 	 		if(objBoot.getRoom().getId()==idRoom && objBoot.isStatus()) return true;
 	 	}
 	 	return false;
 	 }
-			
+ 
+	/* Kiểm tra đã xác nhận đặt phòng chưa */			
 	public boolean checkIdAccept(List<Boot> listBoots, int idStudent, int idRoom){
 	 	for(Boot objBoot : listBoots){
 	 		if(objBoot.getRoom().getId()==idRoom && objBoot.getStudent().getId()==idStudent && objBoot.isAccept()) return true;
@@ -62,7 +64,8 @@
 	    <tr>
 	      <th style="text-align: center">Tên phòng</th>
 	      <th style="text-align: center">Khu vực</th>
-	      <th style="text-align: center">Số giường</th>
+	      <th style="text-align: center">Tổng số giường</th>
+	      <th style="text-align: center">Số giường trống</th>
 	      <th style="text-align: center">Có vệ sinh trong</th>
 	      <th style="text-align: center">Giá tiền</th>
 	      <th style="<%if(userLogin==null) out.print("display: none"); %>">Cảm xúc</th>
@@ -89,6 +92,7 @@
 				<input type="checkbox" class="bed" value="8" onchange="filterName(3)">
 				<label> 8 </label>
 			</th>
+			<th></th>
 	      	<th>
 				<input type="radio" class="toilet" name="toilet" value="true" onchange="filterName(4)">
 				<label>Có</label>
@@ -103,8 +107,6 @@
 				  <option value="3">Trên 1 Triệu</option>
 				</select>
 			</th>
-	      	<th style="<%if(userLogin==null) out.print("display: none"); %>"></th>
-			<th style="<%if(userLogin==null) out.print("display: none"); %>"></th>
 	    </tr>
 	   </thead>
 	   <tbody>
@@ -120,13 +122,14 @@
 	     <tr>
 	       <td><%=objRoom.getName() %></td>
 	       <td>Khu <%=objRoom.getArea().getName() %></td>
-	       <td><%=objRoom.getNumberOfBed() %> giường</td>
+	       <td><%=objRoom.getTotalBed() %> giường</td>
+	       <td><%=objRoom.getEmptyBed() %> giường</td>
 	       <td><input type="checkbox" <%if(objRoom.isHaveTolet()) out.print("checked"); %> onclick="return false;" ></td>
 	       <td><%=objRoom.getPrice() %></td>
 	       <td style="<%if(userLogin==null) out.print("display: none"); %>"><a href="javascript:void(0)">
 	       		<img style="width:60px;height:50px;" alt="" src="<%=request.getContextPath()%>/uploads/images/like.jpg"></a></td>
-	       <td style="<%if(userLogin==null) out.print("display: none"); %>"><a href="javascript:void(0)" onclick="onSelectRoom(<%if(listBoots!=null) out.print(checkIdAccept(listBoots, idStudent, objRoom.getId()));%>,<%=objRoom.getId() %>)">
-	       		<img style="width:40px;height:50px;" class="select" alt="<%if(listBoots!=null) out.print(checkIdAccept(listBoots, idStudent, objRoom.getId()));%>"
+	       <td style="<%if(userLogin==null) out.print("display: none"); %>"><a href="javascript:void(0)" onclick="onSelectRoom(<%if(listBoots!=null) out.print(checkIdAccept(listBoots, idStudent, objRoom.getId()));%>,<%=objRoom.getId() %>,<%=objRoom.getEmptyBed() %>)">
+	       		<img style="width:40px;height:50px;" class="select" alt="<%if(listBoots!=null) out.print(checkIdAccept(listBoots, idStudent, objRoom.getId()));%>" id="<%=objRoom.getEmptyBed() %>"
 	       		src="<%=request.getContextPath()%>/uploads/images/<%if(listBoots!=null && checkIdRoom(listBoots, objRoom.getId())) out.print("tick.png"); else out.print("cancel.png"); %>"></a></td>
 	     </tr>
 	     <%
@@ -154,7 +157,7 @@ function filterName(number){
 	        $('.bed:checked').each(function(i){
 	        	arVal[i] = parseInt($(this).val());
 	        });
-	        value = JSON.stringify(arVal);
+	        value = JSON.stringify(arVal);//chuyển mảng string sang kiểu string
 			break;
 		case 4:
 			$('.toilet:checked').each(function(i){
@@ -184,7 +187,8 @@ function filterName(number){
 
 $("img[class=select]").click(function(){
 	let image = $(this);
-	if(image.attr("alt")==="false") {
+	// Nếu chưa xác nhận và còn giường
+	if(image.attr("alt")==="false" && image.attr("id")>0) {
 		$.ajax({
 			url: '<%=request.getContextPath()%>/index',
 				type : 'POST',
@@ -202,16 +206,20 @@ $("img[class=select]").click(function(){
 	}
 });
 
-function onSelectRoom(check, id){
+function onSelectRoom(check, idRoom, empty){
 	if(check) {
 		alert("Không thể hủy phòng đã được xác nhận!");
+		exit();
+	}
+	if(!empty) {
+		alert("Phòng này đã hết giường rồi!");
 		exit();
 	}
 	$.ajax({
 		url: '<%=request.getContextPath()%>/index',
 		type: 'POST',
 		data: {
-			aid: id,
+			aidRoom: idRoom,
 		},
 		success: function(data){
 		},
@@ -221,12 +229,12 @@ function onSelectRoom(check, id){
 	})
 }
 
-function onSaveBoot(idMember){
+function onSaveBoot(idStudent){
 	$.ajax({
 		url: '<%=request.getContextPath()%>/index',
 		type: 'POST',
 		data: {
-			aidMember: idMember,
+			aidStudent: idStudent,
 		},
 		success: function(data){
 			alert("Đặt phòng thành công!");
