@@ -37,9 +37,9 @@
 	 }
  
 	/* Kiểm tra đã xác nhận đặt phòng chưa */			
-	public boolean checkIdAccept(List<Boot> listBoots, int idStudent, int idRoom){
+	public boolean checkIdAccept(List<Boot> listBoots, int idRoom){
 	 	for(Boot objBoot : listBoots){
-	 		if(objBoot.getRoom().getId()==idRoom && objBoot.getStudent().getId()==idStudent && objBoot.isAccept()) return true;
+	 		if(objBoot.getRoom().getId()==idRoom && objBoot.isAccepted()) return true;
 	 	}
 	 	return false;
 	}
@@ -117,19 +117,18 @@
 	   List<Room> listRooms = (List<Room>) request.getAttribute("listRooms");
 	   if(listRooms.size()>0){
 		   for(Room objRoom: listRooms){
-			   int idStudent = userLogin!=null? userLogin.getId() : 0;
 	   %>
 	     <tr>
 	       <td><%=objRoom.getName() %></td>
 	       <td>Khu <%=objRoom.getArea().getName() %></td>
 	       <td><%=objRoom.getTotalBed() %> giường</td>
 	       <td><%=objRoom.getEmptyBed() %> giường</td>
-	       <td><input type="checkbox" <%if(objRoom.isHaveTolet()) out.print("checked"); %> onclick="return false;" ></td>
+	       <td><input type="checkbox" <%if(objRoom.isHaveToilet()) out.print("checked"); %> onclick="return false;" ></td>
 	       <td><%=objRoom.getPrice() %></td>
 	       <td style="<%if(userLogin==null) out.print("display: none"); %>"><a href="javascript:void(0)">
 	       		<img style="width:60px;height:50px;" alt="" src="<%=request.getContextPath()%>/uploads/images/like.jpg"></a></td>
-	       <td style="<%if(userLogin==null) out.print("display: none"); %>"><a href="javascript:void(0)" onclick="onSelectRoom(<%if(listBoots!=null) out.print(checkIdAccept(listBoots, idStudent, objRoom.getId()));%>,<%=objRoom.getId() %>,<%=objRoom.getEmptyBed() %>)">
-	       		<img style="width:40px;height:50px;" class="select" alt="<%if(listBoots!=null) out.print(checkIdAccept(listBoots, idStudent, objRoom.getId()));%>" id="<%=objRoom.getEmptyBed() %>"
+	       <td style="<%if(userLogin==null) out.print("display: none"); %>"><a href="javascript:void(0)" onclick="onSelectRoom(<%if(listBoots!=null) out.print(checkIdAccept(listBoots, objRoom.getId()));%>,<%=objRoom.getId() %>,<%=objRoom.getEmptyBed() %>)">
+	       		<img style="width:40px;height:50px;" class="select" alt="<%if(listBoots!=null) out.print(checkIdAccept(listBoots, objRoom.getId()));%>" id="<%=objRoom.getEmptyBed() %>"
 	       		src="<%=request.getContextPath()%>/uploads/images/<%if(listBoots!=null && checkIdRoom(listBoots, objRoom.getId())) out.print("tick.png"); else out.print("cancel.png"); %>"></a></td>
 	     </tr>
 	     <%

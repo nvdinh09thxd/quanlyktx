@@ -97,7 +97,7 @@ public class BootDAO extends AbstractDAO {
 		String sqlRoom = "UPDATE rooms SET empty_bed = empty_bed - 1 WHERE id = ?";
 		try {
 			pst = con.prepareStatement(sqlBoot);
-			pst.setBoolean(1, boot.isAccept());
+			pst.setBoolean(1, boot.isAccepted());
 			pst.setInt(2, boot.getId());
 			results = pst.executeUpdate();
 

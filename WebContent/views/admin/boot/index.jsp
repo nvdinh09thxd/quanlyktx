@@ -37,7 +37,7 @@
 								if(request.getAttribute("listBoots")!=null){
 									List<Boot> listBoots = (List<Boot>) request.getAttribute("listBoots");
 									for(Boot objBoot : listBoots){
-										String picture = objBoot.isAccept()?"active.gif":"deactive.gif";
+										String picture = objBoot.isAccepted()?"active.gif":"deactive.gif";
 							%>
 								<tr>
 									<td class="center"><%=objBoot.getRoom().getName() %></td>

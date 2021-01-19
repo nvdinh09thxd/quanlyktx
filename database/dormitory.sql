@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th1 18, 2021 lúc 10:49 AM
+-- Thời gian đã tạo: Th1 19, 2021 lúc 05:14 AM
 -- Phiên bản máy phục vụ: 10.1.32-MariaDB
 -- Phiên bản PHP: 7.1.17
 
@@ -57,17 +57,6 @@ CREATE TABLE `boots` (
   `accepted` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Đang đổ dữ liệu cho bảng `boots`
---
-
-INSERT INTO `boots` (`id`, `id_student`, `id_room`, `status`, `accepted`) VALUES
-(16, 1, 1, 1, 1),
-(31, 1, 2, 0, 0),
-(50, 1, 3, 1, 1),
-(54, 1, 4, 0, 0),
-(63, 1, 5, 1, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -89,11 +78,11 @@ CREATE TABLE `rooms` (
 --
 
 INSERT INTO `rooms` (`id`, `name`, `area`, `total_bed`, `empty_bed`, `have_toilet`, `price`) VALUES
-(1, 'A101', 1, 8, 7, 1, 400000),
+(1, 'A101', 1, 8, 8, 1, 400000),
 (2, 'A102', 1, 6, 6, 0, 600000),
-(3, 'B102', 2, 6, 5, 1, 700000),
+(3, 'B102', 2, 6, 6, 1, 700000),
 (4, 'C101', 3, 4, 4, 1, 1200000),
-(5, 'D102', 4, 8, 7, 0, 800000);
+(5, 'D102', 4, 8, 8, 0, 800000);
 
 -- --------------------------------------------------------
 
@@ -193,7 +182,7 @@ ALTER TABLE `area`
 -- AUTO_INCREMENT cho bảng `boots`
 --
 ALTER TABLE `boots`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT cho bảng `rooms`

@@ -13,7 +13,7 @@ public class Room {
 	private Area area;
 	private int totalBed;
 	private int emptyBed;
-	private boolean haveTolet;
+	private boolean haveToilet;
 	private float price;
 
 	public Room(int id) {

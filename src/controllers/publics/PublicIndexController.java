@@ -47,7 +47,7 @@ public class PublicIndexController extends HttpServlet {
 		}
 		listRooms = roomDao.findAll();
 		request.setAttribute("listRooms", listRooms);
-		RequestDispatcher rd = request.getRequestDispatcher("/views/public/pages/list.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/views/public/pages/index.jsp");
 		rd.forward(request, response);
 	}
 
@@ -90,10 +90,10 @@ public class PublicIndexController extends HttpServlet {
 			case 3:
 				String replace = value.replace("[", "");
 				value = replace.replace("]", "");
-				String[] myList = value.split(",");
-				if (myList.length > 0 && myList[0].length() != 0) {
-					for (String obj : myList) {
-						if (objRoom.getTotalBed() == Integer.parseInt(obj))
+				String[] listChecked = value.split(",");
+				if (listChecked.length > 0 && listChecked[0].length() != 0) {
+					for (String objChecked : listChecked) {
+						if (objRoom.getTotalBed() == Integer.parseInt(objChecked))
 							listRoomsFilter.add(objRoom);
 					}
 				} else {
@@ -101,7 +101,7 @@ public class PublicIndexController extends HttpServlet {
 				}
 				break;
 			case 4:
-				if (objRoom.isHaveTolet() == Boolean.parseBoolean(value))
+				if (objRoom.isHaveToilet() == Boolean.parseBoolean(value))
 					listRoomsFilter.add(objRoom);
 				break;
 			case 5:
@@ -118,7 +118,7 @@ public class PublicIndexController extends HttpServlet {
 			}
 		}
 		for (Room objRoom : listRoomsFilter) {
-			String checked = objRoom.isHaveTolet() ? " checked " : "";
+			String checked = objRoom.isHaveToilet() ? " checked " : "";
 			out.print("<tr>");
 			out.print("<td>" + objRoom.getName() + "</td>");
 			out.print("<td>Khu " + objRoom.getArea().getName() + "</td>");

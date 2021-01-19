@@ -12,7 +12,7 @@ public class Boot {
 	private Student student;
 	private Room room;
 	private boolean status;
-	private boolean accept;
+	private boolean accepted;
 
 	public Boot(Room room, Student student, boolean status) {
 		super();
@@ -21,19 +21,19 @@ public class Boot {
 		this.status = status;
 	}
 
-	public Boot(int id, Student student, Room room, boolean accept) {
+	public Boot(int id, Student student, Room room, boolean accepted) {
 		super();
 		this.id = id;
 		this.student = student;
 		this.room = room;
-		this.accept = accept;
+		this.accepted = accepted;
 	}
 
-	public Boot(int id, Room room, boolean accept) {
+	public Boot(int id, Room room, boolean accepted) {
 		super();
 		this.id = id;
 		this.room = room;
-		this.accept = accept;
+		this.accepted = accepted;
 	}
 
 }

@@ -39,16 +39,16 @@
 </div>
 <!-- /.content-wrapper -->
 <%
-	List<Room> listRooms = null;
+	List<Room> listEmptyRooms = null;
 	if(request.getAttribute("listEmptyRooms")!=null){
-		listRooms = (List<Room>) request.getAttribute("listEmptyRooms");
+		listEmptyRooms = (List<Room>) request.getAttribute("listEmptyRooms");
 	}
 %>
 <script>
 	$(function () {
 	    "use strict";
 	    let myData  = [];
-		<%if(listRooms != null){for(Room objRoom: listRooms){%>
+		<%if(listEmptyRooms != null){for(Room objRoom: listEmptyRooms){%>
 			myData.push({id: "<%=objRoom.getId()%>", name: "<%=objRoom.getName()%>", empty_bed: "<%=objRoom.getEmptyBed()%>"});
 		<%}}%>
 	    $("#grid").jqGrid({
