@@ -53,7 +53,7 @@ public class PublicRegisterController extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/index?msg=1");
 			return;
 		} else {
-			RequestDispatcher rd = request.getRequestDispatcher("/views/public/checkout-registration.jsp?msg=0");
+			RequestDispatcher rd = request.getRequestDispatcher("/views/public/pages/register.jsp?msg=0");
 			rd.forward(request, response);
 			return;
 		}

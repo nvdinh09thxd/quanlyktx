@@ -48,7 +48,7 @@ public class PublicLoginController extends HttpServlet {
 			HttpSession session = request.getSession();
 			Student userLogin = studentDao.getItem(email, password);
 			session.setAttribute("userLogin", userLogin);
-			response.sendRedirect(request.getContextPath() + "/index");
+			response.sendRedirect(request.getContextPath() + "/views/public/index.jsp");
 		} else {
 			// Nếu không tồn tại username và password trong csdl thì chuyển tiếp đến trang
 			// login và thông báo lỗi

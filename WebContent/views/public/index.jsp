@@ -7,6 +7,15 @@
   <div id="pageintro" class="hoc clear"> 
     <!-- ################################################################################################ -->
     <article class="introtxt">
+    <%
+			if(request.getParameter("msg")!=null){
+				int msg = Integer.parseInt(request.getParameter("msg"));
+				switch(msg){
+					case 1: out.print("<p style='background: yellow; color: green'>Đăng ký thành công!</p>");
+					break;
+				}
+			}
+	%>
       <p>Đây là chương trình Quản lý Ký Túc Xá Sinh viên DMC</p>
       <h1 class="heading">KÝ TÚC XÁ SINH VIÊN DMC ĐÀ NẴNG</h1>
       <footer><a class="btn" href="#">Hòa Khánh - Liên Chiểu</a></footer>

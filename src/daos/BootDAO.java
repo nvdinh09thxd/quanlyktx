@@ -58,11 +58,12 @@ public class BootDAO extends AbstractDAO {
 	public int add(Boot boot, int idStudent) {
 		int result = 0;
 		con = DBConnectionUtil.getConnection();
-		String sql = "INSERT INTO boots (id_student, id_room) VALUES (?, ?)";
+		String sql = "INSERT INTO boots (id_student, id_room, status) VALUES (?, ?, ?)";
 		try {
 			pst = con.prepareStatement(sql);
 			pst.setInt(1, idStudent);
 			pst.setInt(2, boot.getRoom().getId());
+			pst.setBoolean(3, boot.isStatus());
 			result = pst.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -90,7 +91,7 @@ public class BootDAO extends AbstractDAO {
 		return results;
 	}
 
-	public int editAccept(Boot boot) {
+	public int editAccepted(Boot boot) {
 		int results = 0;
 		con = DBConnectionUtil.getConnection();
 		String sqlBoot = "UPDATE boots SET accepted = ? WHERE id = ?";

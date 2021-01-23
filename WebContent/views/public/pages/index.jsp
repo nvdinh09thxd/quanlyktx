@@ -46,15 +46,6 @@
  %>
     <!-- main body -->
     <!-- ################################################################################################ -->
-    <%
-			if(request.getParameter("msg")!=null){
-				int msg = Integer.parseInt(request.getParameter("msg"));
-				switch(msg){
-					case 1: out.print("<p style='background: yellow; color: green'>Đăng ký thành công!</p>");
-					break;
-				}
-			}
-	%>
 	<a style="<%if(userLogin==null) out.print("display: none");%>" href="javascript:void(0)"
 		onclick="onSaveBoot(<%if(userLogin!=null) out.print(userLogin.getId()); %>)">
 	<img style="width:60px;height:50px;" alt="" src="<%=request.getContextPath()%>/uploads/images/saveicon.png">
@@ -127,7 +118,8 @@
 	       <td><%=objRoom.getPrice() %></td>
 	       <td style="<%if(userLogin==null) out.print("display: none"); %>"><a href="javascript:void(0)">
 	       		<img style="width:60px;height:50px;" alt="" src="<%=request.getContextPath()%>/uploads/images/like.jpg"></a></td>
-	       <td style="<%if(userLogin==null) out.print("display: none"); %>"><a href="javascript:void(0)" onclick="onSelectRoom(<%if(listBoots!=null) out.print(checkIdAccept(listBoots, objRoom.getId()));%>,<%=objRoom.getId() %>,<%=objRoom.getEmptyBed() %>)">
+	       <td style="<%if(userLogin==null) out.print("display: none"); %>"><a href="javascript:void(0)"
+	       		onclick="onSelectRoom(<%if(listBoots!=null) out.print(checkIdAccept(listBoots, objRoom.getId()));%>, <%=objRoom.getId() %>, <%=objRoom.getEmptyBed() %>)">
 	       		<img style="width:40px;height:50px;" class="select" alt="<%if(listBoots!=null) out.print(checkIdAccept(listBoots, objRoom.getId()));%>" id="<%=objRoom.getEmptyBed() %>"
 	       		src="<%=request.getContextPath()%>/uploads/images/<%if(listBoots!=null && checkIdRoom(listBoots, objRoom.getId())) out.print("tick.png"); else out.print("cancel.png"); %>"></a></td>
 	     </tr>
@@ -169,7 +161,7 @@ function filterName(number){
 	}
 	
 	$.ajax({
-		url: '<%=request.getContextPath()%>/index',
+		url: '<%=request.getContextPath()%>/rooms',
 		type: 'POST',
 		data: {
 			anumber: number,
@@ -189,7 +181,7 @@ $("img[class=select]").click(function(){
 	// Nếu chưa xác nhận và còn giường
 	if(image.attr("alt")==="false" && image.attr("id")>0) {
 		$.ajax({
-			url: '<%=request.getContextPath()%>/index',
+			url: '<%=request.getContextPath()%>/rooms',
 				type : 'POST',
 				cache : false,
 				data : {
@@ -215,7 +207,7 @@ function onSelectRoom(check, idRoom, empty){
 		exit();
 	}
 	$.ajax({
-		url: '<%=request.getContextPath()%>/index',
+		url: '<%=request.getContextPath()%>/rooms',
 		type: 'POST',
 		data: {
 			aidRoom: idRoom,
@@ -230,7 +222,7 @@ function onSelectRoom(check, idRoom, empty){
 
 function onSaveBoot(idStudent){
 	$.ajax({
-		url: '<%=request.getContextPath()%>/index',
+		url: '<%=request.getContextPath()%>/rooms',
 		type: 'POST',
 		data: {
 			aidStudent: idStudent,

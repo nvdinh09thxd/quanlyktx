@@ -50,11 +50,11 @@
     <header id="header" class="hoc clear"> 
       <!-- ################################################################################################ -->
       <div id="logo" class="fl_left">
-        <h1><a href="<%=request.getContextPath()%>/views/public/index.jsp">Limberly</a></h1>
+        <h1><a href="<%=request.getContextPath()%>/index">Limberly</a></h1>
       </div>
       <nav id="mainav" class="fl_right">
         <ul class="clear">
-          <li class="active"><a href="<%=request.getContextPath()%>/index">Home</a></li>
+          <li class="active"><a href="<%=request.getContextPath()%>/rooms">Rooms</a></li>
           <li><a class="drop" href="#">Pages</a>
             <ul>
               <li><a href="<%=request.getContextPath()%>/views/pages/gallery.jsp">Gallery</a></li>

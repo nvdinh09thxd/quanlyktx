@@ -51,7 +51,7 @@ public class AdminBootController extends HttpServlet {
 			fileName = firstName + "active.gif";
 		}
 		Boot boot = new Boot(id, new Room(idRoom), active);
-		if (bootDao.editAccept(boot) > 0) {
+		if (bootDao.editAccepted(boot) > 0) {
 			out.print(fileName);
 		} else {
 			out.print(src);

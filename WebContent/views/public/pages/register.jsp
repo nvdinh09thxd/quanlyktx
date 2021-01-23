@@ -31,6 +31,12 @@
     <div class="content"> 
       <!-- ################################################################################################ -->
       <div id="gallery">
+      <%
+			String msg = request.getParameter("msg");
+			if (msg != null) {
+				out.print("<h3 style='background: #67FF67; color: red'>Xảy ra lỗi trong quá trình xử lý!</h3>");
+			}
+		%>
         <form class="primari-box personal-info-box" id="personalinfo" method="post">
 			<h3 class="box-subheading">Your personal information</h3>
 			<div class="personal-info-content">
